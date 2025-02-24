@@ -82,7 +82,7 @@ public static void main(String[] args)
         case 3:
             s.display();
             break;
-          } }while(ch<4);
+        } }while(ch<4);
 }
 }
 
