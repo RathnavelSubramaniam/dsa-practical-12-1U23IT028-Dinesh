@@ -1,86 +1,88 @@
 import java.util.*;
-public class LinkedStack {
-    class Node {
-        int data;
-        Node next;
-    public Node(int data) {
-        this.data = data;
-        this.next = null;
-        }
-    }
-    Node top;
-    LinkedStack() 
-    { 
-        this.top = null; 
-        
-    }
-    public boolean isEmpty()
-    {
-        // TYPE YOUR CODE HERE
-    }
-    public void push(int data) 
-    {
-         // TYPE YOUR CODE HERE    
+public class LinkedStack{    
+protected int capacity;
+protected int[] stack;
+protected int top = -1;
+public LinkedStack(int cap) {
+capacity = cap;
+stack = new int[capacity];
 }
-    public int pop() 
-    {
-        // TYPE YOUR CODE HERE
-    }
-     public static void main(String[] args) {
-        LinkedStack stack = new LinkedStack();
-        Scanner scanner = new Scanner(System.in);
-        Scanner sc = new Scanner(System.in);
-        int ch,data, c;
-        System.out.println("ENTER INTEGERS TO CREATE NODES (ENTER A NON-INTEGER TO EXIT):");
-        while (scanner.hasNext()) {
-        if(scanner.hasNextInt())
-          {
-       data = scanner.nextInt();
-       stack.push(data);
-        }
-        else{
-          String temp=scanner.next();
-          System.out.println("STACK USING LINKED LIST HAS BEEN CREATED");
-          stack.displayStack();
-do
+public int size()
 {
-    System.out.println("1.PUSH");
-    System.out.println("2.POP");
-    System.out.println("3.EXIT");
-    System.out.println("ENTER YOUR CHOICE:"); 
-    ch= scanner.nextInt();
+    return (top+1);
+}
+public void push(int data)
+{
+if (isFull())
+System.out.println("Stack is Overflow. Not possible to insert in Full stack");
+else
+{
+stack[++top] = data;
+System.out.println("Element is inserted");
+}
+}
+public int pop()
+{
+int data=-1;
+if (isEmpty())
+{
+System.out.println("Stack is Underflow. No elements to be popped in Empty Stack");
+}
+else
+{
+data = stack[top];
+top--;
+}
+return data;
+}
+public boolean isFull()
+{
+    return (size()==capacity);
+}
+public boolean isEmpty()
+{
+    return (top<0);
+}
+public void display()
+{
+    if(isEmpty())
+    System.out.println("Stack is Underflow. No elements to display in Empty Stack");
+    else
+    {
+    System.out.println("Stack Elements:Top of the Stack Element is");
+    for(int i=top;i>=0;i--)
+    System.out.println(stack[i]);
+    }
+}
+public static void main(String[] args)
+{
+    LinkedStack s=new LinkedStack(5);
+    Scanner sc=new Scanner(System.in);
+    int data,ch;
+    do
+    {
+    System.out.println("\n1.Push");
+    System.out.println("2.Pop");
+    System.out.println("3.Display Stack");
+    System.out.println("4.Exit\n");
+    System.out.println("Enter your choice:");
+    ch=sc.nextInt();
     switch(ch)
     {
-        case 1: 
-            System.out.println("ENTER THE ELEMENT TO PUSH INTO STACK:");
-            data=scanner.nextInt();
-            stack.push(data);
-            System.out.println("STACK ELEMENTS AFTER PUSH OPERATION ARE:");
-            stack.displayStack();
+        case 1:
+            System.out.println("Enter the element to insert:");
+            data=sc.nextInt();
+            s.push(data);
             break;
-        case 2:
-            data=stack.pop();
+        case 2:            
+            data=s.pop();
             if(data!=-1)
-            {
-            System.out.println("POPPED ELEMENT IS:"+data);
-            System.out.println("STACK ELEMENTS AFTER POP");
-            stack.displayStack();
-            }
+            System.out.println("Popped Element:"+data);
             break;
-            case 3:
-            System.exit(0);
-            }}while(ch<3);
-        }
-}
-scanner.close();
-}
-public void displayStack() {
-        Node current = top;
-        while (current != null) {
-        System.out.print(current.data + " -> ");
-        current = current.next;
-    }
-    System.out.println("null");
+        case 3:
+            s.display();
+            break;
+          } }while(ch<4);
 }
 }
 
